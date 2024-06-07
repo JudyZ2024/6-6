@@ -7,19 +7,23 @@ format: html
 ```{r}
 #| echo: false
 #| message: false
-```
-```{r}
 library(tidyverse)
 library(primer.data)
 
 ```
 ```{r}
-connectedness |> ggplot(mappimg = aes(x = population, y = connectedeness)) +
-  geom_point() +
-scale_x_log10(labels = scales::comma_format())+
-  labs(title = "US County Population verses Ecomomic Connectedness",
-subtitle = "Population size does not matter to EC",
-x = "Population", y = "Economic Connectedness")
+#| echo: false
+#| message: false
+connectedness |> 
+  drop_na() |> 
+  ggplot(aes(x = population, y = connectedness)) +
+    geom_point() +
+    geom_smooth(method = lm) +
+    scale_x_log10(labels = scales::comma_format()) +
+    labs(title = "US County Populations versus Economic Connectedness",
+       subtitle = "Population size does not matter to EC",
+       x = "Population",
+       y = "Economic Connectedness")
 
 
 ```
